@@ -35,6 +35,12 @@ System.register(['./bootstrap-dashboard', './default-detailed-view', './default-
 
       _export(_exportObj4);
     }],
-    execute: function () {}
+    execute: function () {
+      function configure(aurelia) {
+        aurelia.globalResources("./bootstrap-dashboard", "./default-detailed-view", "./default-search-box", "./swagger-data-source-configurator");
+      }
+
+      _export('configure', configure);
+    }
   };
 });

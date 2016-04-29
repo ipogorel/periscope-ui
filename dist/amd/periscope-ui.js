@@ -40,4 +40,8 @@ define(['exports', './bootstrap-dashboard', './default-detailed-view', './defaul
       }
     });
   });
+  exports.configure = configure;
+  function configure(aurelia) {
+    aurelia.globalResources("./bootstrap-dashboard", "./default-detailed-view", "./default-search-box", "./swagger-data-source-configurator");
+  }
 });

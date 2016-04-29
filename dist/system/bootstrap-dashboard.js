@@ -1,7 +1,7 @@
 'use strict';
 
-System.register(['periscope-framework', 'lodash', 'jquery'], function (_export, _context) {
-  var DashboardBase, _, $, BootstrapDashboard;
+System.register(['aurelia-framework', 'periscope-framework', 'lodash', 'jquery'], function (_export, _context) {
+  var useView, DashboardBase, _, $, BootstrapDashboard;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -34,7 +34,9 @@ System.register(['periscope-framework', 'lodash', 'jquery'], function (_export, 
   }
 
   return {
-    setters: [function (_periscopeFramework) {
+    setters: [function (_aureliaFramework) {
+      useView = _aureliaFramework.useView;
+    }, function (_periscopeFramework) {
       DashboardBase = _periscopeFramework.DashboardBase;
     }, function (_lodash) {
       _ = _lodash;

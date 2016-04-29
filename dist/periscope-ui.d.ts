@@ -2,6 +2,14 @@ declare module 'periscope-ui' {
   import * as _ from 'lodash';
   import $ from 'jquery';
   import {
+    useView,
+    Container,
+    Decorators,
+    bindable,
+    computedFrom,
+    bindingMode
+  } from 'aurelia-framework';
+  import {
     DashboardBase,
     StringHelper,
     DslExpressionManagerFactory,
@@ -11,17 +19,12 @@ declare module 'periscope-ui' {
     DataSourceConfigurator
   } from 'periscope-framework';
   import {
-    Container,
-    Decorators,
-    bindable,
-    computedFrom,
-    bindingMode
-  } from 'aurelia-framework';
-  import {
     DetailedView,
     Query
   } from 'periscope-framework';
   import Swagger from 'swagger-client';
+  
+  //@useView('./bootstrap-dashboard.html')
   export class BootstrapDashboard extends DashboardBase {
     constructor(name: any);
     replaceWidget(oldWidget: any, newWidget: any, callback: any): any;

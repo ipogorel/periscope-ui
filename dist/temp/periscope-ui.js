@@ -19,9 +19,9 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _periscopeFramework = require('periscope-framework');
-
 var _aureliaFramework = require('aurelia-framework');
+
+var _periscopeFramework = require('periscope-framework');
 
 var _swaggerClient = require('swagger-client');
 

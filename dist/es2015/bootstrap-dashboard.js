@@ -1,3 +1,4 @@
+import { useView } from 'aurelia-framework';
 import { DashboardBase } from 'periscope-framework';
 import * as _ from 'lodash';
 import $ from 'jquery';

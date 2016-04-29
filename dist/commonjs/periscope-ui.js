@@ -51,3 +51,7 @@ Object.keys(_swaggerDataSourceConfigurator).forEach(function (key) {
     }
   });
 });
+exports.configure = configure;
+function configure(aurelia) {
+  aurelia.globalResources("./bootstrap-dashboard", "./default-detailed-view", "./default-search-box", "./swagger-data-source-configurator");
+}

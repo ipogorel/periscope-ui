@@ -1,4 +1,4 @@
-define(['exports', 'periscope-framework', 'lodash', 'jquery'], function (exports, _periscopeFramework, _lodash, _jquery) {
+define(['exports', 'aurelia-framework', 'periscope-framework', 'lodash', 'jquery'], function (exports, _aureliaFramework, _periscopeFramework, _lodash, _jquery) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {

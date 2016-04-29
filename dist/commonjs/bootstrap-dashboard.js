@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.BootstrapDashboard = undefined;
 
+var _aureliaFramework = require('aurelia-framework');
+
 var _periscopeFramework = require('periscope-framework');
 
 var _lodash = require('lodash');
