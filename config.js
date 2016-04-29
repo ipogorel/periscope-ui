@@ -12,15 +12,6 @@ System.config({
     "npm:*": "jspm_packages/npm/*"
   },
 
-  meta: {
-    "github:twbs/bootstrap*": {
-      "format": "cjs",
-      "deps": [
-        "jquery"
-      ]
-    }
-  },
-
   map: {
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.0-beta.1.2.0",
     "aurelia-fetch-client": "npm:aurelia-fetch-client@1.0.0-beta.1.2.1",
@@ -33,7 +24,7 @@ System.config({
     "aurelia-templating-router": "npm:aurelia-templating-router@1.0.0-beta.1.2.0",
     "babel": "npm:babel-core@5.1.13",
     "babel-runtime": "npm:babel-runtime@5.1.13",
-    "bootstrap": "github:twbs/bootstrap@3.3.6",
+    "bootstrap": "npm:bootstrap@3.3.6",
     "core-js": "npm:core-js@2.0.3",
     "jquery": "npm:jquery@2.2.3",
     "lodash": "npm:lodash@4.11.1",
@@ -110,9 +101,6 @@ System.config({
     },
     "github:jspm/nodelibs-zlib@0.1.0": {
       "browserify-zlib": "npm:browserify-zlib@0.1.4"
-    },
-    "github:twbs/bootstrap@3.3.6": {
-      "jquery": "npm:jquery@2.2.3"
     },
     "npm:acorn@1.2.2": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -259,6 +247,11 @@ System.config({
     },
     "npm:bn.js@4.11.3": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
+    },
+    "npm:bootstrap@3.3.6": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:browserify-aes@1.0.6": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
