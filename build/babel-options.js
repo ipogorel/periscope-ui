@@ -16,7 +16,6 @@ exports.base = function() {
     plugins: [
       'syntax-flow',
       'transform-decorators-legacy',
-      'transform-function-bind',
       ['babel-dts-generator', {
         packageName: paths.packageName,
         typings: '',

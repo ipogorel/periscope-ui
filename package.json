@@ -1,7 +1,7 @@
 {
   "name": "periscope-ui",
-  "version": "0.0.2",
-  "description": "Perscope default set of widgets and dashboard",
+  "version": "0.0.3",
+  "description": "Perscope default set of widget/dashboard implementations",
   "keywords": [
     "periscope",
     "periscope-ui",
@@ -24,6 +24,7 @@
   },
   "jspm": {
     "registry": "npm",
+    "jspmPackage": true,
     "main": "periscope-ui",
     "format": "amd",
     "directories": {

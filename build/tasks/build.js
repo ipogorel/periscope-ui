@@ -31,7 +31,7 @@ function removeDTSPlugin(options) {
 
 gulp.task('build-index', function(){
   var importsToAdd = [];
-  var files = [
+  /*var files = [
     'dialog-options.js',
     'resources/ai-dialog-body.js',
     'resources/ai-dialog-footer.js',
@@ -60,7 +60,21 @@ gulp.task('build-index', function(){
     .pipe(insert.transform(function(contents) {
       return tools.createImportBlock(importsToAdd) + contents;
     }))
-    .pipe(gulp.dest(paths.output));
+    .pipe(gulp.dest(paths.output));*/
+
+
+   return gulp.src(paths.source)
+   .pipe(gulpIgnore.exclude('periscope-ui.js'))
+   .pipe(through2.obj(function(file, enc, callback) {
+   file.contents = new Buffer(tools.extractImports(file.contents.toString("utf8"), importsToAdd));
+   this.push(file);
+   return callback();
+   }))
+   .pipe(concat(jsName))
+   .pipe(insert.transform(function(contents) {
+   return tools.createImportBlock(importsToAdd) + contents;
+   }))
+   .pipe(gulp.dest(paths.output));
 });
 
 gulp.task('build-html-es2015', function () {
@@ -114,12 +128,12 @@ gulp.task('build-html-system', function () {
 });
 
 gulp.task('build-dts', function(){
-  return gulp.src(paths.output + paths.packageName + '.d.ts')
+  /*return gulp.src(paths.output + paths.packageName + '.d.ts')
     .pipe(rename(paths.packageName + '.d.ts'))
     .pipe(gulp.dest(paths.output + 'es2015'))
     .pipe(gulp.dest(paths.output + 'commonjs'))
     .pipe(gulp.dest(paths.output + 'amd'))
-    .pipe(gulp.dest(paths.output + 'system'));
+    .pipe(gulp.dest(paths.output + 'system'));*/
 });
 
 gulp.task('build-css', function () {
