@@ -3,7 +3,6 @@ import $ from 'jquery';
 import {useView,Container,Decorators,bindable,computedFrom,bindingMode} from 'aurelia-framework';
 import {DashboardBase,StringHelper,DslExpressionManagerFactory,SearchBox,Datasource,SwaggerSchemaProvider,DataSourceConfigurator} from 'periscope-framework';
 
-//@useView('./bootstrap-dashboard.html')
 export class BootstrapDashboard extends DashboardBase {
   constructor(name) {
     super(name);

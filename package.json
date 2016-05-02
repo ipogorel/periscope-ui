@@ -101,10 +101,5 @@
     "vinyl-paths": "^1.0.0",
     "whatwg-fetch": "^0.10.1",
     "yargs": "^2.1.1"
-  },
-  "aurelia": {
-    "documentation": {
-      "articles": []
-    }
   }
 }

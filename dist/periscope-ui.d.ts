@@ -23,8 +23,6 @@ declare module 'periscope-ui' {
     Query
   } from 'periscope-framework';
   import Swagger from 'swagger-client';
-  
-  //@useView('./bootstrap-dashboard.html')
   export class BootstrapDashboard extends DashboardBase {
     constructor(name: any);
     replaceWidget(oldWidget: any, newWidget: any, callback: any): any;
