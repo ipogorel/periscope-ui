@@ -141,11 +141,16 @@ define(['exports', 'aurelia-framework', 'periscope-framework', 'lodash', 'jquery
         var totalHeight = _.sumBy(this.layout, function (x) {
           if (typeof x.sizeY === 'number' && layoutWidget.row !== x.row) return x.sizeY * _this2.widgetBaseHeight;
         });
-        result = "height: " + ((0, _jquery2.default)('#dashboard')[0].clientHeight - totalHeight - 80) + "px;";
+        result = (0, _jquery2.default)('#dashboard')[0].clientHeight - totalHeight;
       } else {
-        if (layoutWidget.sizeY > 0) result = "height: " + layoutWidget.sizeY * this.widgetBaseHeight + "px;";
+        if (layoutWidget.sizeY > 0) result = layoutWidget.sizeY * this.widgetBaseHeight;
       }
-      return result;
+      this.setWidgetHeight(layoutWidget, result);
+      return "height: " + result + "px;";
+    };
+
+    BootstrapDashboard.prototype.setWidgetHeight = function setWidgetHeight(layoutWidget, containerHeight) {
+      if (layoutWidget.widget.showHeader) layoutWidget.widget.minHeight = containerHeight - 71;else layoutWidget.widget.minHeight = containerHeight - 31;
     };
 
     BootstrapDashboard.prototype.openPopup = function openPopup() {
