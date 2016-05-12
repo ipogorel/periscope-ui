@@ -39,7 +39,7 @@ export let DefaultDetailedView = class DefaultDetailedView extends DetailedView 
     let q = new Query();
     q.take = 1;
     q.skip = 0;
-    q.serverSideFilter = this.dataFilter;
+    q.filter = this.dataFilter;
     this.dataSource.getData(q).then(dH => {
       if (dH.data.length > 0) this.data = dH.data[0];
     });

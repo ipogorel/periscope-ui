@@ -36,7 +36,7 @@ var DefaultDetailedView = exports.DefaultDetailedView = function (_DetailedView)
     var q = new _periscopeFramework.Query();
     q.take = 1;
     q.skip = 0;
-    q.serverSideFilter = this.dataFilter;
+    q.filter = this.dataFilter;
     this.dataSource.getData(q).then(function (dH) {
       if (dH.data.length > 0) _this2.data = dH.data[0];
     });

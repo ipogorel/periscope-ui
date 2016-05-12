@@ -42,7 +42,7 @@
       "bootstrap": "^3.3.6",
       "jquery": "^2.2.3",
       "lodash": "^4.11.1",
-      "periscope-framework": "^0.0.10",
+      "periscope-framework": "^0.0.13",
       "swagger-client": "^2.1.14"
     },
     "devDependencies": {

@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import $ from 'jquery';
 import {useView,Container,Decorators,bindable,computedFrom,bindingMode} from 'aurelia-framework';
-import {DashboardBase,StringHelper,DslExpressionManagerFactory,SearchBox,Datasource,SwaggerSchemaProvider,DataSourceConfigurator} from 'periscope-framework';
+import {DashboardBase,StringHelper,IntellisenceManager,GrammarTree,SearchBox,ExpressionParser,Datasource,SwaggerSchemaProvider,DataSourceConfigurator} from 'periscope-framework';
 
 export class BootstrapDashboard extends DashboardBase {
   constructor(name) {
@@ -145,7 +145,7 @@ export class DefaultDetailedView extends DetailedView {
     let q = new Query();
     q.take = 1;
     q.skip = 0;
-    q.serverSideFilter = this.dataFilter;
+    q.filter = this.dataFilter;
     this.dataSource.getData(q).then(dH=>{
       if (dH.data.length>0)
         this.data = dH.data[0];
@@ -156,19 +156,12 @@ export class DefaultDetailedView extends DetailedView {
 export class DefaultSearchBox extends SearchBox {
   constructor(settings){
     super(settings);
-    
-    var container = new Container();
-    this._expressionManagerFactory = container.get(DslExpressionManagerFactory);
 
-    this._searchString = "";
-
-    this._assumptionString = "";
     this._isValid = true;
     this._caretPosition = 0;
 
     this._separators = [" ",","];
     this._specialSymbols= ["'","(",")","\""];
-
 
     this._timer;
 
@@ -181,22 +174,29 @@ export class DefaultSearchBox extends SearchBox {
     }
   }
 
+  get parser (){
+    return this._parser;
+  }
+  set parser(value){
+    this._parser = value;
+  }
+
+  get expressionManager (){
+    return this._expressionManager;
+  }
+  set expressionManager(value){
+    this._expressionManager = value;
+  }
 
   get selectedSuggestion (){
     return this._selectedSuggestion;
   }
+
   set selectedSuggestion (value){
     if (this._selectedSuggestion  != value) {
       this._selectedSuggestion = value;
       this.select(this._selectedSuggestion)
     }
-  }
-
-  get assumptionString (){
-    return this._assumptionString;
-  }
-  set assumptionString (value){
-    this._assumptionString = value;
   }
 
 
@@ -208,24 +208,27 @@ export class DefaultSearchBox extends SearchBox {
   }
 
   get isValid() {
-    if ((this.searchString==='')||(!this.expressionManager))
+    if ((this.searchString==='')||(!this.parser))
       return true;
-    return this.expressionManager.validate(this.searchString);
+    return this.parser.validate(this.searchString);
   }
 
   refresh(){
-      super.refresh();
-      var self = this;
-      this._expressionManagerFactory.createInstance(this.dataSource).then(
-        x=> {
-          self.expressionManager = x;
-          if (self.state){
-            self.searchString = self.state;
-            self.suggestionsListSettings.displaySuggestions = false;
-          }
-        });
+    super.refresh();
+    var self = this;
+
+    this.dataSource.transport.readService.getSchema().then(schema=>{
+      let allFields = _.map(schema.fields,"field");
+      //let grammar = new GrammarExpression(schema.fields);
+      let grammar = new GrammarTree(schema.fields);
+      self.parser = new ExpressionParser(grammar.getGrammar());
+      self.expressionManager = new IntellisenceManager(self.parser, self.dataSource, allFields);
+      self.restoreState();
+      if (self.state)
+        self.suggestionsListSettings.displaySuggestions = false;
+    });
   }
-  
+
 
   get searchString(){
     return this._searchString;
@@ -234,7 +237,9 @@ export class DefaultSearchBox extends SearchBox {
     if (this._searchString != value) {
       this._searchString = value;
       this.populateSuggestions(value);
-      this.notifySearchCriteriaChanged();
+      if (this.isValid) {
+        this.notifySearchCriteriaChanged();
+      }
     }
   }
 
@@ -259,9 +264,9 @@ export class DefaultSearchBox extends SearchBox {
     var self = this;
     $(this.searchBox)[0].addEventListener("keydown", function (e) {
       if (e.keyCode==40) {
-         self.suggestionsListSettings.focusedSuggestion = 0;
-         e.preventDefault();
-         e.stopPropagation();
+        self.suggestionsListSettings.focusedSuggestion = 0;
+        e.preventDefault();
+        e.stopPropagation();
       }
       else {
         self.suggestionsListSettings.focusedSuggestion = -1;
@@ -271,7 +276,6 @@ export class DefaultSearchBox extends SearchBox {
       if ((e.keyCode == 27)||(e.keyCode == 13)){ //escape
         self.suggestionsListSettings.displaySuggestions = false;
       }
-
     }, true);
 
     $(function () {
@@ -286,14 +290,6 @@ export class DefaultSearchBox extends SearchBox {
     this.suggestionsListSettings.title = '';
     this.expressionManager.populate(searchStr, lastWord).then(data=>{
       this.suggestionsListSettings.suggestions =  data;
-      /*if ((lastWord!="") && (this.suggestionsListSettings.suggestions.length == 0) && (!this.isValid)){ // suspect misspelling
-        // count levenstein distance for each suggestion
-        var assumptions = this.getAssumptions(lastWord, this.suggestionsListSettings.suggestions)
-        if (assumptions.length>0){
-          this.suggestionsListSettings.title = '';
-          this.suggestionsListSettings.suggestions = assumptions;
-        }
-      }*/
       this.suggestionsListSettings.lastWord = lastWord;
       this.suggestionsListSettings.displaySuggestions = this.suggestionsListSettings.suggestions.length > 0;
     });
@@ -343,26 +339,6 @@ export class DefaultSearchBox extends SearchBox {
     this.searchString = strLeft + value + strRight;
   }
 
-  getAssumptions(wrongString, suggestions){
-    var assumptions = [];
-    for (let sg of suggestions)
-    {
-      assumptions.push({
-        distance: StringHelper.getEditDistance(sg.value.substring(0,wrongString.length), wrongString),
-        value: sg.value,
-        type: sg.type
-      });
-    }
-    assumptions = assumptions.sort(function(a,b){
-        if (a.distance > b.distance)
-          return 1;
-        if (a.distance < b.distance)
-          return -1;
-        return 0;
-      }).splice(0, assumptions.length>1 ? 1 : assumptions.length);
-
-    return assumptions;
-  }
 
   getLastWord(searchStr){
     var str = StringHelper.getPreviousWord(searchStr,this.caretPosition,this._separators);
@@ -373,56 +349,17 @@ export class DefaultSearchBox extends SearchBox {
 
 
   notifySearchCriteriaChanged() {
-    if (this.isValid) {
-      this.state = this.searchString;
-    }
+    this.saveState();
     var self = this;
-    self.assumptionString = "";
     window.clearTimeout(self._timer);
     self._timer = window.setTimeout(function () {
-        if (self.isValid) {
-          var searchExpression = '';
-          if (self.searchString!=='')
-            var searchExpression = self.expressionManager.parse(self.searchString)
-          self.dataFilterChanged.raise(searchExpression);
-        }
-        /*else{
-          self.assumptionString = self.createSearchStringAssumption(self.searchString)
-        }*/
-      }, 500);
-  }
-
-  createSearchStringAssumption(searchStr) {
-    var maxAttempts = 10;
-    var result = "";
-    for (var i=0;i<=maxAttempts;i++){
-      var err = this.expressionManager.getParserError(searchStr);
-      if (err.offset < searchStr.length){
-        var wrongStr = StringHelper.getNextWord(searchStr,err.offset,this._separators);
-        if (wrongStr.trim().length>0) {
-          var assump = this.getAssumptions(wrongStr, this.expressionManager.populate(searchStr));
-          if (assump.length>0){
-            searchStr = StringHelper.replaceAll(searchStr,wrongStr,assump[0].value);
-            if (this.expressionManager.validate(searchStr)) {
-              result = searchStr;
-              break;
-            }
-          }
-        }
+      if (self.isValid) {
+        let astTree = [];
+        if (self.searchString!=='')
+          astTree = self.parser.parse(self.searchString)
+        self.dataFilterChanged.raise(astTree);
       }
-      else
-        break;
-    }
-    console.log(result);
-    return result;
-  }
-
-  selectAssumption(){
-    this.searchString = this.assumptionString;
-  }
-
-  get showAssumption(){
-    return ((this.assumptionString != '') && (!this.suggestionsListSettings.displaySuggestions));
+    }, 500);
   }
 }
 

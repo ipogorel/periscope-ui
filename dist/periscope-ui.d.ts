@@ -12,8 +12,10 @@ declare module 'periscope-ui' {
   import {
     DashboardBase,
     StringHelper,
-    DslExpressionManagerFactory,
+    IntellisenceManager,
+    GrammarTree,
     SearchBox,
+    ExpressionParser,
     Datasource,
     SwaggerSchemaProvider,
     DataSourceConfigurator
@@ -45,8 +47,9 @@ declare module 'periscope-ui' {
   }
   export class DefaultSearchBox extends SearchBox {
     constructor(settings: any);
+    parser: any;
+    expressionManager: any;
     selectedSuggestion: any;
-    assumptionString: any;
     suggestionsListSettings: any;
     isValid: any;
     refresh(): any;
@@ -55,12 +58,8 @@ declare module 'periscope-ui' {
     attached(): any;
     populateSuggestions(searchStr: any): any;
     select(suggestion: any): any;
-    getAssumptions(wrongString: any, suggestions: any): any;
     getLastWord(searchStr: any): any;
     notifySearchCriteriaChanged(): any;
-    createSearchStringAssumption(searchStr: any): any;
-    selectAssumption(): any;
-    showAssumption: any;
   }
   export class SwaggerDataSourceConfigurator extends DataSourceConfigurator {
     constructor(settings: any);
