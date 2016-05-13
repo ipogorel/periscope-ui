@@ -28,7 +28,7 @@ System.config({
     "core-js": "npm:core-js@2.0.3",
     "jquery": "npm:jquery@2.2.3",
     "lodash": "npm:lodash@4.12.0",
-    "periscope-framework": "npm:periscope-framework@0.0.13",
+    "periscope-framework": "npm:periscope-framework@0.0.14",
     "swagger-client": "npm:swagger-client@2.1.14",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -558,7 +558,7 @@ System.config({
     "npm:pegjs@0.9.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:periscope-framework@0.0.13": {
+    "npm:periscope-framework@0.0.14": {
       "aurelia-dependency-injection": "npm:aurelia-dependency-injection@1.0.0-beta.1.2.3",
       "aurelia-event-aggregator": "npm:aurelia-event-aggregator@1.0.0-beta.1.2.1",
       "aurelia-fetch-client": "npm:aurelia-fetch-client@1.0.0-beta.1.2.5",
