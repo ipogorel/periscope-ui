@@ -36,7 +36,7 @@ export class BootstrapDashboard extends DashboardBase {
   }
 
   attached(){
-    this.layoutStructure = this.createLayoutStructure(this.layout);
+    //this.layoutStructure = this.createLayoutStructure(this.layout);
   }
 
   createLayoutStructure(layout){

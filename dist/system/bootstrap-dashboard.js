@@ -82,9 +82,7 @@ System.register(['aurelia-framework', 'periscope-framework', 'lodash', 'jquery']
           this.layoutStructure = this.createLayoutStructure(this.layout);
         };
 
-        BootstrapDashboard.prototype.attached = function attached() {
-          this.layoutStructure = this.createLayoutStructure(this.layout);
-        };
+        BootstrapDashboard.prototype.attached = function attached() {};
 
         BootstrapDashboard.prototype.createLayoutStructure = function createLayoutStructure(layout) {
           var sortedWidgets = _.sortBy(layout, function (w) {

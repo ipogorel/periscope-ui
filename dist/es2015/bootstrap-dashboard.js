@@ -35,9 +35,7 @@ export let BootstrapDashboard = class BootstrapDashboard extends DashboardBase {
     this.layoutStructure = this.createLayoutStructure(this.layout);
   }
 
-  attached() {
-    this.layoutStructure = this.createLayoutStructure(this.layout);
-  }
+  attached() {}
 
   createLayoutStructure(layout) {
     var sortedWidgets = _.sortBy(layout, function (w) {
