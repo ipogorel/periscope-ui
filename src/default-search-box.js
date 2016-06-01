@@ -204,7 +204,7 @@ export class DefaultSearchBox extends SearchBox {
     window.clearTimeout(self._timer);
     self._timer = window.setTimeout(function () {
       if (self.isValid) {
-        let astTree = [];
+        let astTree;
         if (self.searchString!=='')
           astTree = self.parser.parse(self.searchString)
         self.dataFilterChanged.raise(astTree);

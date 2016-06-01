@@ -159,7 +159,7 @@ var DefaultSearchBox = exports.DefaultSearchBox = function (_SearchBox) {
     window.clearTimeout(self._timer);
     self._timer = window.setTimeout(function () {
       if (self.isValid) {
-        var astTree = [];
+        var astTree = void 0;
         if (self.searchString !== '') astTree = self.parser.parse(self.searchString);
         self.dataFilterChanged.raise(astTree);
       }
