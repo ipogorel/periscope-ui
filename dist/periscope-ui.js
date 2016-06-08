@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import $ from 'jquery';
 import {useView,Container,Decorators,bindable,computedFrom,bindingMode} from 'aurelia-framework';
-import {DashboardBase,StringHelper,IntellisenceManager,GrammarTree,SearchBox,ExpressionParser,Datasource,SwaggerSchemaProvider,DataSourceConfigurator} from 'periscope-framework';
+import {DashboardBase,PermissionsCustomAttribute,StringHelper,IntellisenceManager,GrammarTree,SearchBox,ExpressionParser,Datasource,SwaggerSchemaProvider,DataSourceConfigurator} from 'periscope-framework';
 
 export class BootstrapDashboard extends DashboardBase {
   constructor(name) {

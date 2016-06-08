@@ -11,6 +11,7 @@ declare module 'periscope-ui' {
   } from 'aurelia-framework';
   import {
     DashboardBase,
+    PermissionsCustomAttribute,
     StringHelper,
     IntellisenceManager,
     GrammarTree,

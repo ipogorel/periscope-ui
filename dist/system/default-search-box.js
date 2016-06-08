@@ -1,7 +1,7 @@
 'use strict';
 
 System.register(['aurelia-framework', 'jquery', 'periscope-framework'], function (_export, _context) {
-  var Container, Decorators, bindable, $, StringHelper, IntellisenceManager, GrammarTree, SearchBox, ExpressionParser, _createClass, DefaultSearchBox;
+  var Container, Decorators, bindable, $, StringHelper, IntellisenceManager, GrammarTree, SearchBox, ExpressionParser, PermissionsCustomAttribute, _createClass, DefaultSearchBox;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -46,6 +46,7 @@ System.register(['aurelia-framework', 'jquery', 'periscope-framework'], function
       GrammarTree = _periscopeFramework.GrammarTree;
       SearchBox = _periscopeFramework.SearchBox;
       ExpressionParser = _periscopeFramework.ExpressionParser;
+      PermissionsCustomAttribute = _periscopeFramework.PermissionsCustomAttribute;
     }],
     execute: function () {
       _createClass = function () {

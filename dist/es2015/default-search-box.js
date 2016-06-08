@@ -1,6 +1,6 @@
 import { Container, Decorators, bindable } from 'aurelia-framework';
 import $ from 'jquery';
-import { StringHelper, IntellisenceManager, GrammarTree, SearchBox, ExpressionParser } from 'periscope-framework';
+import { StringHelper, IntellisenceManager, GrammarTree, SearchBox, ExpressionParser, PermissionsCustomAttribute } from 'periscope-framework';
 
 export let DefaultSearchBox = class DefaultSearchBox extends SearchBox {
   constructor(settings) {
