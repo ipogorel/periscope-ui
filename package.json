@@ -1,6 +1,6 @@
 {
   "name": "periscope-ui",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Perscope default set of widget/dashboard implementations",
   "keywords": [
     "periscope",
@@ -42,7 +42,7 @@
       "bootstrap": "^3.3.6",
       "jquery": "^2.2.3",
       "lodash": "^4.11.1",
-      "periscope-framework": "^0.0.18",
+      "periscope-framework": "^0.0.19",
       "periscope-tools": "^0.0.2",
       "swagger-client": "^2.1.14"
     },
