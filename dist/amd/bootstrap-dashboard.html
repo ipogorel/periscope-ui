@@ -1,5 +1,6 @@
 <template>
     <!--<require from="periscope-framework"></require>-->
+  <require from='./controls/widget-menu'></require>
     <div class="row" repeat.for="r of layoutStructure">
       <template repeat.for="w of r.widgets">
         <div css="${$parent.$parent.getColHeight(w)}" class="${$parent.$parent.getColWidth(w)} widget-container" permissions.bind="{resourceGroup:w.widget.resourceGroup,permissions:'read'}">
@@ -16,6 +17,7 @@
                     <li><button type="button" class="btn btn-link" click.trigger="removeWidget(w.widget)"><i class="fa fa-remove"></i> Delete</button></li>
                     <li><button type="button" class="btn btn-link" click.trigger="resizeWidget(w.widget, {sizeX: 12})" show.bind="!w.resized"><i class="fa fa-arrows-h"></i> Maximize</button></li>
                     <li><button type="button" class="btn btn-link" click.trigger="resizeWidget(w.widget)" show.bind="w.resized"><i class="fa fa-undo"></i> Undo Maximize</button></li>
+                    <li><widget-menu widget.bind="w.widget"></widget-menu></li>
                   </ul>
                 </h4>
               </header>

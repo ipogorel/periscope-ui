@@ -19,8 +19,13 @@ declare module 'periscope-ui' {
     ExpressionParser,
     Datasource,
     SwaggerSchemaProvider,
-    DataSourceConfigurator
+    DataSourceConfigurator,
+    DrillDownBehaviorConfiguration
   } from 'periscope-framework';
+  import {
+    ValidationEngine,
+    Validator
+  } from 'aurelia-validatejs';
   import {
     DetailedView,
     Query
@@ -34,8 +39,6 @@ declare module 'periscope-ui' {
     removeWidget(widget: any): any;
     resizeWidget(widget: any, dimensions: any): any;
     attached(): any;
-    
-    //this.layoutStructure = this.createLayoutStructure(this.layout);
     createLayoutStructure(layout: any): any;
     getColWidth(layoutWidget: any): any;
     getColHeight(layoutWidget: any): any;
@@ -75,6 +78,27 @@ declare module 'periscope-ui' {
     method: any;
     submit(): any;
   }
+  export class GridMenu {
+    constructor(widget: any);
+    errors: any;
+    drillDownModel: any;
+    drillDownBehavior: any;
+    widget: any;
+    validator: any;
+    showDrillDownButton: any;
+    hasErrors(): any;
+    renderErrors(result: any): any;
+    closePopup(): any;
+    openPopup(): any;
+    save(): any;
+    getDrillDownBehavior(): any;
+  }
+  export class DrillDownModel {
+    url: any;
+    username: any;
+    password: any;
+    query: any;
+  }
   export class List {
     items: any;
     title: any;
@@ -91,5 +115,10 @@ declare module 'periscope-ui' {
     focusedItemIndexChanged(newValue: any, oldValue: any): any;
     setFocus(itemIndex: any): any;
     clearFocus(): any;
+  }
+  export class WidgetMenu {
+    widget: any;
+    content: any;
+    widgetChanged(oldVal: any, newVal: any): any;
   }
 }

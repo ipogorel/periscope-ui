@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['aurelia-framework', 'periscope-framework', 'swagger-client', 'lodash'], function (_export, _context) {
+  "use strict";
+
   var computedFrom, Datasource, SwaggerSchemaProvider, DataSourceConfigurator, Swagger, _, _typeof, _createClass, _dec, _dec2, _desc, _value, _class, SwaggerDataSourceConfigurator;
 
   function _classCallCheck(instance, Constructor) {

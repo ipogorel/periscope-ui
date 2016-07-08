@@ -3,11 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.List = exports.SwaggerDataSourceConfigurator = exports.DefaultSearchBox = exports.DefaultDetailedView = exports.BootstrapDashboard = undefined;
+exports.WidgetMenu = exports.List = exports.DrillDownModel = exports.GridMenu = exports.SwaggerDataSourceConfigurator = exports.DefaultSearchBox = exports.DefaultDetailedView = exports.BootstrapDashboard = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-var _dec, _dec2, _desc, _value, _class, _dec3, _dec4, _dec5, _desc2, _value2, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6;
+var _dec, _dec2, _desc, _value, _class, _dec3, _dec4, _dec5, _desc2, _value2, _class4, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _desc3, _value3, _class6, _descriptor7;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -22,6 +22,8 @@ var _jquery2 = _interopRequireDefault(_jquery);
 var _aureliaFramework = require('aurelia-framework');
 
 var _periscopeFramework = require('periscope-framework');
+
+var _aureliaValidatejs = require('aurelia-validatejs');
 
 var _swaggerClient = require('swagger-client');
 
@@ -580,7 +582,107 @@ var SwaggerDataSourceConfigurator = exports.SwaggerDataSourceConfigurator = (_de
 
   return SwaggerDataSourceConfigurator;
 }(_periscopeFramework.DataSourceConfigurator), (_applyDecoratedDescriptor(_class.prototype, 'methods', [_dec], Object.getOwnPropertyDescriptor(_class.prototype, 'methods'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'parameters', [_dec2], Object.getOwnPropertyDescriptor(_class.prototype, 'parameters'), _class.prototype)), _class));
-var List = exports.List = (_dec3 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec4 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec5 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), (_class2 = function () {
+
+var GridMenu = exports.GridMenu = function () {
+  function GridMenu(widget) {
+    var _this11 = this;
+
+    _classCallCheck(this, GridMenu);
+
+    this.errors = [];
+
+    this.widget = widget;
+    this.drillDownModel = new DrillDownModel();
+    this.drillDownBehavior = this.getDrillDownBehavior();
+    this.availableParams = [];
+    if (this.drillDownBehavior) {
+      this.drillDownModel.query = this.drillDownBehavior.queryPattern;
+      this.drillDownModel.url = this.drillDownBehavior.dataServiceUrl;
+      this.drillDownModel.username = this.drillDownBehavior.username;
+      this.drillDownModel.password = this.drillDownBehavior.password;
+    }
+    this.widget.dataSource.transport.readService.getSchema().then(function (schema) {
+      _this11.availableParams = _.map(schema.fields, function (f) {
+        return "@" + f.field;
+      });
+    });
+
+    this.validator = new _aureliaValidatejs.Validator(this.drillDownModel).ensure('url').url().required().ensure('query').required();
+    this.reporter = _aureliaValidatejs.ValidationEngine.getValidationReporter(this.drillDownModel);
+    this.subscriber = this.reporter.subscribe(function (result) {
+      _this11.renderErrors(result);
+    });
+  }
+
+  GridMenu.prototype.hasErrors = function hasErrors() {
+    return !!this.errors.length;
+  };
+
+  GridMenu.prototype.renderErrors = function renderErrors(result) {
+    var _this12 = this;
+
+    this.errors.splice(0, this.errors.length);
+    result.forEach(function (error) {
+      _this12.errors.push(error);
+    });
+  };
+
+  GridMenu.prototype.closePopup = function closePopup() {
+    (0, _jquery2.default)(this.popupDrilldown).modal('hide');
+  };
+
+  GridMenu.prototype.openPopup = function openPopup() {
+    (0, _jquery2.default)("body").append((0, _jquery2.default)(this.popupDrilldown));
+    (0, _jquery2.default)(this.popupDrilldown).modal('show');
+  };
+
+  GridMenu.prototype.save = function save() {
+    this.validator.validate();
+    if (!this.hasErrors()) {
+      var configuration = new _periscopeFramework.DrillDownBehaviorConfiguration();
+      configuration.queryPattern = this.drillDownModel.query;
+      configuration.dataServiceUrl = this.drillDownModel.url;
+      configuration.password = this.drillDownModel.password;
+      configuration.username = this.drillDownModel.username;
+
+      this.drillDownBehavior.configure(configuration);
+      this.closePopup();
+    }
+  };
+
+  GridMenu.prototype.getDrillDownBehavior = function getDrillDownBehavior() {
+    var result = void 0;
+    _.forEach(this.widget.behaviors, function (behavior) {
+      if (behavior && behavior.constructor && behavior.constructor.name === "DrillDownBehavior") {
+        result = behavior;
+      }
+    });
+    return result;
+  };
+
+  _createClass(GridMenu, [{
+    key: 'showDrillDownButton',
+    get: function get() {
+      var result = false;
+      if (!this.drillDownBehavior) return result;
+
+      _.forEach(this.widget.dashboard.behaviors, function (behavior) {
+        if (behavior && behavior.constructor && behavior.constructor.name === "DrillDownHandleBehavior") {
+          result = true;
+        }
+      });
+      return result;
+    }
+  }]);
+
+  return GridMenu;
+}();
+
+var DrillDownModel = exports.DrillDownModel = function DrillDownModel() {
+  _classCallCheck(this, DrillDownModel);
+};
+
+var List = exports.List = (_dec3 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec4 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), _dec5 = (0, _aureliaFramework.bindable)({ defaultBindingMode: _aureliaFramework.bindingMode.twoWay }), (_class4 = function () {
   function List() {
     _classCallCheck(this, List);
 
@@ -685,28 +787,46 @@ var List = exports.List = (_dec3 = (0, _aureliaFramework.bindable)({ defaultBind
   };
 
   return List;
-}(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'items', [_aureliaFramework.bindable], {
+}(), (_descriptor = _applyDecoratedDescriptor(_class4.prototype, 'items', [_aureliaFramework.bindable], {
   enumerable: true,
   initializer: function initializer() {
     return null;
   }
-}), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, 'title', [_aureliaFramework.bindable], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class4.prototype, 'title', [_aureliaFramework.bindable], {
   enumerable: true,
   initializer: function initializer() {
     return "";
   }
-}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, 'highlightText', [_aureliaFramework.bindable], {
+}), _descriptor3 = _applyDecoratedDescriptor(_class4.prototype, 'highlightText', [_aureliaFramework.bindable], {
   enumerable: true,
   initializer: function initializer() {
     return "";
   }
-}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, 'visible', [_dec3], {
+}), _descriptor4 = _applyDecoratedDescriptor(_class4.prototype, 'visible', [_dec3], {
   enumerable: true,
   initializer: null
-}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, 'selectedItem', [_dec4], {
+}), _descriptor5 = _applyDecoratedDescriptor(_class4.prototype, 'selectedItem', [_dec4], {
   enumerable: true,
   initializer: null
-}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, 'focusedItemIndex', [_dec5], {
+}), _descriptor6 = _applyDecoratedDescriptor(_class4.prototype, 'focusedItemIndex', [_dec5], {
   enumerable: true,
   initializer: null
-})), _class2));
+})), _class4));
+var WidgetMenu = exports.WidgetMenu = (_class6 = function () {
+  function WidgetMenu() {
+    _classCallCheck(this, WidgetMenu);
+
+    _initDefineProp(this, 'widget', _descriptor7, this);
+  }
+
+  WidgetMenu.prototype.widgetChanged = function widgetChanged(oldVal, newVal) {
+    if (Object.getPrototypeOf(this.widget.constructor).name === "Grid") this.content = new GridMenu(this.widget);
+  };
+
+  return WidgetMenu;
+}(), (_descriptor7 = _applyDecoratedDescriptor(_class6.prototype, 'widget', [_aureliaFramework.bindable], {
+  enumerable: true,
+  initializer: function initializer() {
+    return {};
+  }
+})), _class6);

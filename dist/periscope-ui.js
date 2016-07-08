@@ -1,7 +1,8 @@
 import * as _ from 'lodash';
 import $ from 'jquery';
 import {useView,Container,Decorators,bindable,computedFrom,bindingMode} from 'aurelia-framework';
-import {DashboardBase,PermissionsCustomAttribute,StringHelper,IntellisenceManager,GrammarTree,SearchBox,ExpressionParser,Datasource,SwaggerSchemaProvider,DataSourceConfigurator} from 'periscope-framework';
+import {DashboardBase,PermissionsCustomAttribute,StringHelper,IntellisenceManager,GrammarTree,SearchBox,ExpressionParser,Datasource,SwaggerSchemaProvider,DataSourceConfigurator,DrillDownBehaviorConfiguration} from 'periscope-framework';
+import {ValidationEngine,Validator} from 'aurelia-validatejs';
 
 export class BootstrapDashboard extends DashboardBase {
   constructor(name) {
@@ -480,6 +481,110 @@ export class SwaggerDataSourceConfigurator extends DataSourceConfigurator {
   }
 }
 
+export class GridMenu {
+  
+  constructor(widget){
+    this.widget = widget;
+    this.drillDownModel = new DrillDownModel();
+    this.drillDownBehavior = this.getDrillDownBehavior();
+    this.availableParams = [];
+    if (this.drillDownBehavior){
+      this.drillDownModel.query = this.drillDownBehavior.queryPattern;
+      this.drillDownModel.url = this.drillDownBehavior.dataServiceUrl;
+      this.drillDownModel.username = this.drillDownBehavior.username;
+      this.drillDownModel.password = this.drillDownBehavior.password;
+    }
+    this.widget.dataSource.transport.readService.getSchema().then(schema=> {
+      this.availableParams = _.map(schema.fields, f=> {
+        return "@" + f.field;
+      });
+    });
+
+    this.validator = new Validator(this.drillDownModel)
+      .ensure('url')
+      .url()
+      .required()
+      .ensure('query')
+      .required();
+    this.reporter = ValidationEngine.getValidationReporter(this.drillDownModel);
+    this.subscriber = this.reporter.subscribe(result => {
+      this.renderErrors(result);
+    });
+  }
+
+  errors = [];
+  drillDownModel;
+  drillDownBehavior;
+  widget;
+  validator;
+
+
+
+  get showDrillDownButton(){
+    let result = false;
+    if (!this.drillDownBehavior)
+      return result;
+
+    _.forEach(this.widget.dashboard.behaviors,behavior=>{
+      if ((behavior)&&(behavior.constructor)&&(behavior.constructor.name === "DrillDownHandleBehavior")){
+        result = true;
+      }
+    })
+    return result;
+  }
+
+  hasErrors() {
+    return !!this.errors.length;
+  }
+
+  renderErrors(result) {
+    this.errors.splice(0, this.errors.length);
+    result.forEach(error => {
+      this.errors.push(error)
+    });
+  }
+
+  closePopup(){
+    $(this.popupDrilldown).modal('hide');
+  }
+  openPopup(){
+    $("body").append($(this.popupDrilldown));
+    $(this.popupDrilldown).modal('show');
+  }
+
+  save(){
+    this.validator.validate();
+    if (!this.hasErrors()) {
+      let configuration = new DrillDownBehaviorConfiguration()
+      configuration.queryPattern = this.drillDownModel.query;
+      configuration.dataServiceUrl = this.drillDownModel.url;
+      configuration.password = this.drillDownModel.password;
+      configuration.username = this.drillDownModel.username;
+
+      this.drillDownBehavior.configure(configuration);
+      this.closePopup();
+    }
+  }
+
+  getDrillDownBehavior(){
+    let result;
+    _.forEach(this.widget.behaviors, behavior=>{
+      if ((behavior)&&(behavior.constructor)&&(behavior.constructor.name === "DrillDownBehavior")){
+        result = behavior;
+      }
+    });
+    return result;
+  }
+
+}
+
+export class DrillDownModel {
+  url;
+  username;
+  password;
+  query;
+}
+
 export class List {
   @bindable items = null;
   @bindable title = "";
@@ -601,3 +706,13 @@ export class List {
 
 }
 
+
+export class WidgetMenu {
+  @bindable widget = {};
+  content;
+  widgetChanged(oldVal, newVal) {
+    if (Object.getPrototypeOf(this.widget.constructor).name==="Grid")
+      this.content = new GridMenu(this.widget);
+  }
+
+}
