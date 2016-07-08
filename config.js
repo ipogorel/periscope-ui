@@ -18,11 +18,11 @@ System.config({
     "aurelia-framework": "npm:aurelia-framework@1.0.0-rc.1.0.1",
     "aurelia-loader-default": "npm:aurelia-loader-default@1.0.0-rc.1.0.0",
     "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-rc.1.0.0",
-    "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0-beta.1.1.2",
+    "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0-rc.1.0.0",
     "aurelia-templating-binding": "npm:aurelia-templating-binding@1.0.0-beta.1.2.1",
     "aurelia-templating-resources": "npm:aurelia-templating-resources@1.0.0-beta.1.2.2",
     "aurelia-templating-router": "npm:aurelia-templating-router@1.0.0-beta.1.2.0",
-    "aurelia-validatejs": "npm:aurelia-validatejs@0.6.0",
+    "aurelia-validatejs": "npm:aurelia-validatejs@0.4.0",
     "babel": "npm:babel-core@5.1.13",
     "babel-runtime": "npm:babel-runtime@5.1.13",
     "bootstrap": "npm:bootstrap@3.3.6",
@@ -134,7 +134,7 @@ System.config({
       "aurelia-logging-console": "npm:aurelia-logging-console@1.0.0-beta.1.2.0",
       "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.2.1",
       "aurelia-pal-browser": "npm:aurelia-pal-browser@1.0.0-rc.1.0.0",
-      "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0-beta.1.1.2",
+      "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0-rc.1.0.0",
       "aurelia-router": "npm:aurelia-router@1.0.0-beta.1.2.1",
       "aurelia-templating": "npm:aurelia-templating@1.0.0-beta.1.2.2",
       "aurelia-templating-binding": "npm:aurelia-templating-binding@1.0.0-beta.1.2.1",
@@ -197,8 +197,8 @@ System.config({
     "npm:aurelia-pal-browser@1.0.0-rc.1.0.0": {
       "aurelia-pal": "npm:aurelia-pal@1.0.0-rc.1.0.0"
     },
-    "npm:aurelia-polyfills@1.0.0-beta.1.1.2": {
-      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.2.1"
+    "npm:aurelia-polyfills@1.0.0-rc.1.0.0": {
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-rc.1.0.0"
     },
     "npm:aurelia-route-recognizer@1.0.0-beta.1.2.0": {
       "aurelia-path": "npm:aurelia-path@1.0.0-rc.1.0.0"
@@ -273,17 +273,17 @@ System.config({
       "aurelia-path": "npm:aurelia-path@1.0.0-rc.1.0.0",
       "aurelia-task-queue": "npm:aurelia-task-queue@1.0.0-rc.1.0.0"
     },
-    "npm:aurelia-validatejs@0.6.0": {
-      "aurelia-metadata": "npm:aurelia-metadata@1.0.0-rc.1.0.0",
-      "aurelia-validation": "npm:aurelia-validation@0.10.0",
-      "validate.js": "npm:validate.js@0.10.0"
-    },
-    "npm:aurelia-validation@0.10.0": {
+    "npm:aurelia-validatejs@0.4.0": {
       "aurelia-binding": "npm:aurelia-binding@1.0.0-rc.1.0.2",
       "aurelia-dependency-injection": "npm:aurelia-dependency-injection@1.0.0-rc.1.0.0",
       "aurelia-metadata": "npm:aurelia-metadata@1.0.0-rc.1.0.0",
-      "aurelia-task-queue": "npm:aurelia-task-queue@1.0.0-rc.1.0.0",
-      "aurelia-templating": "npm:aurelia-templating@1.0.0-rc.1.0.0"
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-rc.1.0.0",
+      "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0-rc.1.0.0",
+      "aurelia-validation": "npm:aurelia-validation@0.8.1",
+      "validate.js": "npm:validate.js@0.9.0"
+    },
+    "npm:aurelia-validation@0.8.1": {
+      "aurelia-dependency-injection": "npm:aurelia-dependency-injection@1.0.0-rc.1.0.0"
     },
     "npm:bn.js@4.11.4": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
@@ -745,7 +745,7 @@ System.config({
       "inherits": "npm:inherits@2.0.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:validate.js@0.10.0": {
+    "npm:validate.js@0.9.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:vm-browserify@0.0.4": {
