@@ -1,8 +1,6 @@
 'use strict';
 
 System.register(['aurelia-framework', 'jquery'], function (_export, _context) {
-  "use strict";
-
   var bindable, bindingMode, $, _dec, _dec2, _dec3, _desc, _value, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, List;
 
   function _initDefineProp(target, property, descriptor, context) {

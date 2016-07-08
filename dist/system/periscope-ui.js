@@ -1,8 +1,6 @@
 'use strict';
 
 System.register(['./bootstrap-dashboard', './default-detailed-view', './default-search-box', './swagger-data-source-configurator'], function (_export, _context) {
-  "use strict";
-
   return {
     setters: [function (_bootstrapDashboard) {
       var _exportObj = {};

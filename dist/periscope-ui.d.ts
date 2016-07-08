@@ -39,6 +39,8 @@ declare module 'periscope-ui' {
     removeWidget(widget: any): any;
     resizeWidget(widget: any, dimensions: any): any;
     attached(): any;
+    
+    //this.layoutStructure = this.createLayoutStructure(this.layout);
     createLayoutStructure(layout: any): any;
     getColWidth(layoutWidget: any): any;
     getColHeight(layoutWidget: any): any;

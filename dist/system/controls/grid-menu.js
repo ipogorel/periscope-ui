@@ -1,8 +1,6 @@
 'use strict';
 
 System.register(['aurelia-framework', 'aurelia-validatejs', 'periscope-framework', 'jquery'], function (_export, _context) {
-  "use strict";
-
   var computedFrom, ValidationEngine, Validator, DrillDownBehaviorConfiguration, $, _createClass, GridMenu, DrillDownModel;
 
   function _classCallCheck(instance, Constructor) {

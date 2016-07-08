@@ -1,8 +1,6 @@
 'use strict';
 
 System.register(['aurelia-framework', 'jquery', 'periscope-framework'], function (_export, _context) {
-  "use strict";
-
   var Container, Decorators, bindable, $, StringHelper, IntellisenceManager, GrammarTree, SearchBox, ExpressionParser, PermissionsCustomAttribute, _createClass, DefaultSearchBox;
 
   function _classCallCheck(instance, Constructor) {

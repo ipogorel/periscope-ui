@@ -1,8 +1,6 @@
 'use strict';
 
 System.register(['aurelia-framework', './grid-menu'], function (_export, _context) {
-  "use strict";
-
   var bindable, GridMenu, _desc, _value, _class, _descriptor, WidgetMenu;
 
   function _initDefineProp(target, property, descriptor, context) {

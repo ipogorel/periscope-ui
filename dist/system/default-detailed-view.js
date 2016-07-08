@@ -1,8 +1,6 @@
 'use strict';
 
 System.register(['lodash', 'periscope-framework'], function (_export, _context) {
-  "use strict";
-
   var _, DetailedView, Query, _createClass, DefaultDetailedView;
 
   function _classCallCheck(instance, Constructor) {

@@ -1,8 +1,6 @@
 'use strict';
 
 System.register(['aurelia-framework', 'periscope-framework', 'lodash', 'jquery'], function (_export, _context) {
-  "use strict";
-
   var useView, DashboardBase, PermissionsCustomAttribute, _, $, BootstrapDashboard;
 
   function _classCallCheck(instance, Constructor) {
