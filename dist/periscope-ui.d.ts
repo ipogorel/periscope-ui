@@ -46,6 +46,7 @@ declare module 'periscope-ui' {
     getColHeight(layoutWidget: any): any;
     setWidgetHeight(layoutWidget: any, containerHeight: any): any;
     openPopup(): any;
+    share(): any;
   }
   export class DefaultDetailedView extends DetailedView {
     constructor(settings: any);

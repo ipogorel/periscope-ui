@@ -55,6 +55,7 @@ System.register(['aurelia-framework', 'periscope-framework', 'lodash', 'jquery']
 
           _this.widgetBaseHeight = 70;
           _this.layoutStructure = [];
+          _this.currentUrl = "";
           return _this;
         }
 
@@ -135,6 +136,12 @@ System.register(['aurelia-framework', 'periscope-framework', 'lodash', 'jquery']
 
         BootstrapDashboard.prototype.openPopup = function openPopup() {
           $(this.popWidgetHost).modal('show');
+        };
+
+        BootstrapDashboard.prototype.share = function share() {
+          this.currentUrl = _DashboardBase.prototype.getRoute.call(this);
+          $(this.popupShare).modal('show');
+          $(this.shareUrlInput).select();
         };
 
         return BootstrapDashboard;

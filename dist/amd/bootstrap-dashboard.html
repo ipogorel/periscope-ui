@@ -1,6 +1,8 @@
 <template>
     <!--<require from="periscope-framework"></require>-->
   <require from='./controls/widget-menu'></require>
+
+    <h2>${title} <button class="btn btn-link"><i class="fa fa-2x fa-share" click.trigger="share()"></i></button></h2>
     <div class="row" repeat.for="r of layoutStructure">
       <template repeat.for="w of r.widgets">
         <div css="${$parent.$parent.getColHeight(w)}" class="${$parent.$parent.getColWidth(w)} widget-container" permissions.bind="{resourceGroup:w.widget.resourceGroup,permissions:'read'}">
@@ -36,6 +38,19 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" click.trigger="hide()">&times;</button>
           </div>
           <div class="modal-body widgets-panel-modal">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="popupShare" class="modal fade" ref='popupShare'>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Share '${title}' Dashboard</h3>
+          </div>
+          <div class="modal-body widgets-panel-modal">
+            <textarea ref='shareUrlInput' class="form-control" rows="3" value.bind="currentUrl"></textarea>
           </div>
         </div>
       </div>

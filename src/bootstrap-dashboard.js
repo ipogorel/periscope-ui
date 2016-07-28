@@ -8,6 +8,7 @@ export class BootstrapDashboard extends DashboardBase {
     super(name);
     this.widgetBaseHeight = 70;
     this.layoutStructure = [];
+    this.currentUrl = "";
   }
 
   replaceWidget(oldWidget, newWidget, callback){
@@ -96,6 +97,13 @@ export class BootstrapDashboard extends DashboardBase {
   openPopup() {
     $(this.popWidgetHost).modal('show');
   }
+
+  share(){
+    this.currentUrl = super.getRoute();
+    $(this.popupShare).modal('show');
+    //$(this.shareUrlInput).select();
+  }
+
 
 }
 
