@@ -141,7 +141,6 @@ System.register(['aurelia-framework', 'periscope-framework', 'lodash', 'jquery']
         BootstrapDashboard.prototype.share = function share() {
           this.currentUrl = _DashboardBase.prototype.getRoute.call(this);
           $(this.popupShare).modal('show');
-          $(this.shareUrlInput).select();
         };
 
         return BootstrapDashboard;

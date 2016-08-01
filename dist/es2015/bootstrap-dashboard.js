@@ -91,7 +91,6 @@ export let BootstrapDashboard = class BootstrapDashboard extends DashboardBase {
   share() {
     this.currentUrl = super.getRoute();
     $(this.popupShare).modal('show');
-    $(this.shareUrlInput).select();
   }
 
 };

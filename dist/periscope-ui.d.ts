@@ -26,6 +26,8 @@ declare module 'periscope-ui' {
     ValidationEngine,
     Validator
   } from 'aurelia-validatejs';
+  
+  //$(this.shareUrlInput).select();
   import {
     DetailedView,
     Query

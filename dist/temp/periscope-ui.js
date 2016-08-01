@@ -178,7 +178,6 @@ var BootstrapDashboard = exports.BootstrapDashboard = function (_DashboardBase) 
   BootstrapDashboard.prototype.share = function share() {
     this.currentUrl = _DashboardBase.prototype.getRoute.call(this);
     (0, _jquery2.default)(this.popupShare).modal('show');
-    (0, _jquery2.default)(this.shareUrlInput).select();
   };
 
   return BootstrapDashboard;
