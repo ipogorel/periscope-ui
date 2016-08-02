@@ -1,7 +1,7 @@
 'use strict';
 
-System.register(['aurelia-framework', 'aurelia-validatejs', 'periscope-framework', 'jquery'], function (_export, _context) {
-  var computedFrom, ValidationEngine, Validator, DrillDownBehaviorConfiguration, $, _createClass, GridMenu, DrillDownModel;
+System.register(['aurelia-framework', 'aurelia-validatejs', 'periscope-framework', 'jquery', 'lodash'], function (_export, _context) {
+  var computedFrom, ValidationEngine, Validator, DrillDownBehaviorConfiguration, $, _, _createClass, GridMenu, DrillDownModel;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -19,6 +19,8 @@ System.register(['aurelia-framework', 'aurelia-validatejs', 'periscope-framework
       DrillDownBehaviorConfiguration = _periscopeFramework.DrillDownBehaviorConfiguration;
     }, function (_jquery) {
       $ = _jquery.default;
+    }, function (_lodash) {
+      _ = _lodash;
     }],
     execute: function () {
       _createClass = function () {

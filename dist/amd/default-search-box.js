@@ -1,4 +1,4 @@
-define(['exports', 'aurelia-framework', 'jquery', 'periscope-framework'], function (exports, _aureliaFramework, _jquery, _periscopeFramework) {
+define(['exports', 'aurelia-framework', 'jquery', 'periscope-framework', 'lodash'], function (exports, _aureliaFramework, _jquery, _periscopeFramework, _lodash) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -7,6 +7,25 @@ define(['exports', 'aurelia-framework', 'jquery', 'periscope-framework'], functi
   exports.DefaultSearchBox = undefined;
 
   var _jquery2 = _interopRequireDefault(_jquery);
+
+  var _ = _interopRequireWildcard(_lodash);
+
+  function _interopRequireWildcard(obj) {
+    if (obj && obj.__esModule) {
+      return obj;
+    } else {
+      var newObj = {};
+
+      if (obj != null) {
+        for (var key in obj) {
+          if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+        }
+      }
+
+      newObj.default = obj;
+      return newObj;
+    }
+  }
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {

@@ -2,6 +2,7 @@ import {computedFrom} from 'aurelia-framework';
 import {ValidationEngine, Validator} from 'aurelia-validatejs';
 import {DrillDownBehaviorConfiguration} from 'periscope-framework';
 import $ from 'jquery';
+import * as _ from 'lodash';
 
 export class GridMenu {
   
