@@ -17,7 +17,7 @@ export class GridMenu {
       this.drillDownModel.username = this.drillDownBehavior.username;
       this.drillDownModel.password = this.drillDownBehavior.password;
     }
-    this.widget.dataSource.transport.readService.getSchema().then(schema=> {
+    this.widget.dataSource.readService.getSchema().then(schema=> {
       this.availableParams = _.map(schema.fields, f=> {
         return "@" + f.field;
       });

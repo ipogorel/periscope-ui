@@ -75,7 +75,7 @@ define(['exports', 'aurelia-framework', 'aurelia-validatejs', 'periscope-framewo
         this.drillDownModel.username = this.drillDownBehavior.username;
         this.drillDownModel.password = this.drillDownBehavior.password;
       }
-      this.widget.dataSource.transport.readService.getSchema().then(function (schema) {
+      this.widget.dataSource.readService.getSchema().then(function (schema) {
         _this.availableParams = _.map(schema.fields, function (f) {
           return "@" + f.field;
         });

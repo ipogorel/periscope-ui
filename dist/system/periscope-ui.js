@@ -1,8 +1,10 @@
 'use strict';
 
-System.register(['./bootstrap-dashboard', './default-detailed-view', './default-search-box', './swagger-data-source-configurator'], function (_export, _context) {
+System.register(['./bootstrap-dashboard', './default-detailed-view', './default-search-box', './swagger-data-source-configurator', 'periscope-framework'], function (_export, _context) {
+  var PeriscopeFactory, BootstrapDashboard, DefaultDetailedView, DefaultSearchBox, SwaggerDataSourceConfigurator;
   return {
     setters: [function (_bootstrapDashboard) {
+      BootstrapDashboard = _bootstrapDashboard.BootstrapDashboard;
       var _exportObj = {};
 
       for (var _key in _bootstrapDashboard) {
@@ -11,6 +13,7 @@ System.register(['./bootstrap-dashboard', './default-detailed-view', './default-
 
       _export(_exportObj);
     }, function (_defaultDetailedView) {
+      DefaultDetailedView = _defaultDetailedView.DefaultDetailedView;
       var _exportObj2 = {};
 
       for (var _key2 in _defaultDetailedView) {
@@ -19,6 +22,7 @@ System.register(['./bootstrap-dashboard', './default-detailed-view', './default-
 
       _export(_exportObj2);
     }, function (_defaultSearchBox) {
+      DefaultSearchBox = _defaultSearchBox.DefaultSearchBox;
       var _exportObj3 = {};
 
       for (var _key3 in _defaultSearchBox) {
@@ -27,6 +31,7 @@ System.register(['./bootstrap-dashboard', './default-detailed-view', './default-
 
       _export(_exportObj3);
     }, function (_swaggerDataSourceConfigurator) {
+      SwaggerDataSourceConfigurator = _swaggerDataSourceConfigurator.SwaggerDataSourceConfigurator;
       var _exportObj4 = {};
 
       for (var _key4 in _swaggerDataSourceConfigurator) {
@@ -34,9 +39,16 @@ System.register(['./bootstrap-dashboard', './default-detailed-view', './default-
       }
 
       _export(_exportObj4);
+    }, function (_periscopeFramework) {
+      PeriscopeFactory = _periscopeFramework.PeriscopeFactory;
     }],
     execute: function () {
       function configure(aurelia) {
+        var pf = aurelia.container.get(PeriscopeFactory);
+        pf.addReference(BootstrapDashboard);
+        pf.addReference(DefaultDetailedView);
+        pf.addReference(DefaultSearchBox);
+        pf.addReference(SwaggerDataSourceConfigurator);
         aurelia.globalResources("./bootstrap-dashboard", "./default-detailed-view", "./default-search-box", "./swagger-data-source-configurator");
       }
 

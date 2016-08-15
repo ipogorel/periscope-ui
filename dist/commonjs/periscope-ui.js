@@ -52,6 +52,14 @@ Object.keys(_swaggerDataSourceConfigurator).forEach(function (key) {
   });
 });
 exports.configure = configure;
+
+var _periscopeFramework = require('periscope-framework');
+
 function configure(aurelia) {
+  var pf = aurelia.container.get(_periscopeFramework.PeriscopeFactory);
+  pf.addReference(_bootstrapDashboard.BootstrapDashboard);
+  pf.addReference(_defaultDetailedView.DefaultDetailedView);
+  pf.addReference(_defaultSearchBox.DefaultSearchBox);
+  pf.addReference(_swaggerDataSourceConfigurator.SwaggerDataSourceConfigurator);
   aurelia.globalResources("./bootstrap-dashboard", "./default-detailed-view", "./default-search-box", "./swagger-data-source-configurator");
 }

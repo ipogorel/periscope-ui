@@ -1,4 +1,4 @@
-define(['exports', './bootstrap-dashboard', './default-detailed-view', './default-search-box', './swagger-data-source-configurator'], function (exports, _bootstrapDashboard, _defaultDetailedView, _defaultSearchBox, _swaggerDataSourceConfigurator) {
+define(['exports', './bootstrap-dashboard', './default-detailed-view', './default-search-box', './swagger-data-source-configurator', 'periscope-framework'], function (exports, _bootstrapDashboard, _defaultDetailedView, _defaultSearchBox, _swaggerDataSourceConfigurator, _periscopeFramework) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -42,6 +42,11 @@ define(['exports', './bootstrap-dashboard', './default-detailed-view', './defaul
   });
   exports.configure = configure;
   function configure(aurelia) {
+    var pf = aurelia.container.get(_periscopeFramework.PeriscopeFactory);
+    pf.addReference(_bootstrapDashboard.BootstrapDashboard);
+    pf.addReference(_defaultDetailedView.DefaultDetailedView);
+    pf.addReference(_defaultSearchBox.DefaultSearchBox);
+    pf.addReference(_swaggerDataSourceConfigurator.SwaggerDataSourceConfigurator);
     aurelia.globalResources("./bootstrap-dashboard", "./default-detailed-view", "./default-search-box", "./swagger-data-source-configurator");
   }
 });
